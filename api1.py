@@ -32,6 +32,6 @@ def display_questions(questions):
         print("No questions found.")
 
 if __name__ == "__main__":
-    site = "stackoverflow"  # Możesz zmienić na inny serwis StackExchange, np. "superuser", "askubuntu"
+    site = "stackoverflow"  
     questions = get_latest_questions(site)
     display_questions(questions)
