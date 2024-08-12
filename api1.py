@@ -20,14 +20,23 @@ def get_latest_questions(site, pagesize=10):
         return None
 
 def display_questions(questions):
+
     if questions:
-        for question in questions:
+        
+
+       for question in questions:
             print(f"Title: {question['title']}")
             print(f"Link: {question['link']}")
             print(f"Tags: {', '.join(question['tags'])}")
             print(f"Creation Date: {question['creation_date']}")
             print(f"Score: {question['score']}")
             print('-' * 80)
+            if question['answer_count']== 0:
+                print(f"Its{question['answer_count']} new without any answer")
+            else:
+                print(f"That's not new question")
+
+            
     else:
         print("No questions found.")
 
