@@ -1,7 +1,7 @@
 import requests
 import json
 import pprint
-
+import webbrowser
 def get_latest_questions_score(site, pagesize=10):
     url = f"https://api.stackexchange.com/2.3/questions"
     params = {
@@ -21,9 +21,11 @@ def get_latest_questions_score(site, pagesize=10):
     except json.decoder.JSONDecodeError:
         print("Niepoprawny format")
     else:
-        pprint.pprint(questions)
+        for question in questions["items"]:
+            webbrowser.open_new_tab(question["link"])
 
-"""def display_questions(questions):
+"""
+def display_questions(questions):
 
     if questions:
        for question in questions:
@@ -40,7 +42,8 @@ def get_latest_questions_score(site, pagesize=10):
 
             
             else:
-                print("No questions found.")"""
+                print("No questions found.")
+"""
 
 if __name__ == "__main__":
     
