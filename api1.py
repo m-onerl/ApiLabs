@@ -1,29 +1,31 @@
 import requests
 import json
+import pprint
 
-def get_latest_questions(site, pagesize=10):
+def get_latest_questions_score(site, pagesize=10):
     url = f"https://api.stackexchange.com/2.3/questions"
     params = {
-        'order': 'desc',
-        'sort': 'creation',
+        'order': "desc",
+        'sort': "votes",
+        'fromdate': "2024-05-30",
+        'tagged' : "python",
+        "min" : "15",
         'site': site,
         'pagesize': pagesize
     }
 
-    response = requests.get(url, params=params)
+    response = requests.get(url, params)
     
-    if response.status_code == 200:
+    try:
         questions = response.json()
-        return questions['items']
+    except json.decoder.JSONDecodeError:
+        print("Niepoprawny format")
     else:
-        print(f"Error: {response.status_code}")
-        return None
+        pprint.pprint(questions)
 
-def display_questions(questions):
+"""def display_questions(questions):
 
     if questions:
-        
-
        for question in questions:
             print(f"Title: {question['title']}")
             print(f"Link: {question['link']}")
@@ -37,10 +39,11 @@ def display_questions(questions):
                 print(f"That's not new question")
 
             
-    else:
-        print("No questions found.")
+            else:
+                print("No questions found.")"""
 
 if __name__ == "__main__":
-    site = "stackoverflow"  
-    questions = get_latest_questions(site)
-    display_questions(questions)
+    
+    site = "stackoverflow" 
+    questions = get_latest_questions_score(site)
+"""display_questions(questions)"""
