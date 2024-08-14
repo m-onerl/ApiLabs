@@ -1,13 +1,16 @@
 import requests
 import json
-import pprint
 import webbrowser
-def get_latest_questions_score(site, pagesize=10):
+from datetime import datetime, timedelta
+
+
+
+def get_latest_questions_score(site, time, pagesize=10):
     url = f"https://api.stackexchange.com/2.3/questions"
     params = {
         'order': "desc",
         'sort': "votes",
-        'fromdate': "2024-05-30",
+        'fromdate': int(time.timestamp()),
         'tagged' : "python",
         "min" : "15",
         'site': site,
@@ -21,9 +24,19 @@ def get_latest_questions_score(site, pagesize=10):
     except json.decoder.JSONDecodeError:
         print("Niepoprawny format")
     else:
-        for question in questions["items"]:
-            webbrowser.open_new_tab(question["link"])
+        if "items" in questions:
+            for question in questions["items"]:
+                webbrowser.open_new_tab(question["link"])
+        else:
+            print("No question withone meet conditions")
 
+
+if __name__ == "__main__":
+    site = "stackoverflow" 
+    time = (datetime.today() - timedelta(weeks=3))
+    questions = get_latest_questions_score(site, time)
+
+"""display_questions(questions)"""
 """
 def display_questions(questions):
 
@@ -44,9 +57,3 @@ def display_questions(questions):
             else:
                 print("No questions found.")
 """
-
-if __name__ == "__main__":
-    
-    site = "stackoverflow" 
-    questions = get_latest_questions_score(site)
-"""display_questions(questions)"""
