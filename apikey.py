@@ -17,7 +17,7 @@ except json.decoder.JSONDecodeError:
 else:
     for holiday in content['response']['holidays']:
         print(f"Name of Holiday: {holiday['name']}")
-        print(f"Description of Holiday: {holiday.get('description', 'No description available')}")
+        print(f"Description of Holiday: {holiday['description']}")
         print(f"Date of Holiday: {holiday['date']['iso']}")
         print(f"Type of Holiday: {', '.join(holiday['type'])}")
         print()  
