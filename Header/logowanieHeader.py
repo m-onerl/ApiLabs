@@ -1,12 +1,10 @@
 import requests
 import json   
-import sys
-import credentials
-
-
 from pprint import pprint
+from credentials import headers
 
 r = requests.get('https://api.thecatapi.com/v1/favourites/', headers = headers)
+
 
 
 try:
@@ -15,3 +13,6 @@ except json.decoder.JSONDecodeError:
     print("Bad format") 
 else:
     print(content)
+
+
+    
